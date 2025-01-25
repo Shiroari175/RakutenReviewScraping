@@ -79,6 +79,7 @@ if item_name_element is not None:
 else:
     item_name = None
 
+iCount = 0 # INSERTした件数
 result = []
 for content in content_list:
 
@@ -143,10 +144,6 @@ for content in content_list:
         if not re.search('注文日', item_detail_list[5]) :
             item_detail_list.insert(5,None)
 
-
-    # print(item_detail_list)
-    # print([purchaser_name, evaluation, review_title , review_text, item_detail_list])
-
     # 追加前データチェック
     # 注文日の修正
     # 1.None以外の場合、"注文日："をreplaceする
@@ -157,22 +154,30 @@ for content in content_list:
     else :
         order_date = None
 
-    # 商品名と購入者が同じ場合、かつ名前が「購入者」以外なら追加しないで飛ばす
-    # TODO 問題あり重複チェックは後で見直す
-
     # 重複チェック
+    # レビュー本文が12文字以下の場合は、飛ばす
+    if len(review_text) < 13:
+        print(f"レビュー本文が短すぎるので、登録をスキップします。："
+              f"{item_name},{purchaser_name},{review_text[:12]}...")
+        continue
+
     # 1.商品名が同じ
     # 2.かつ購入者名が同じ
     # 3.かつレビュー本文が先頭から12文字あっていたならば
-    # 追加しないで、更新する
-    cursor.execute('SELECT ITEM_NM, PURCHASER_NM FROM T_REVIEW WHERE'
-                   ' PURCHASER_NM = %s', (purchaser_name,))
+    # 追加しないで、スキップする
+    cursor.execute('SELECT ITEM_NM,'
+                   ' PURCHASER_NM,'
+                   ' REVIEW_TEXT FROM T_REVIEW '
+                   ' WHERE '
+                   ' PURCHASER_NM = %s '
+                   ' and REVIEW_TEXT LIKE %s', (purchaser_name,f'{review_text[:12]}%' ))
     row = cursor.fetchone()
     if row is not None :
-        if item_name == row[0] and purchaser_name == row[1] :
-            if '購入者' != row[1]:
-                print(f"登録スキップします：{row[0]},{row[1]},{review_text}")
-                continue
+        if item_name == row[0] \
+                and purchaser_name == row[1] \
+                and review_text[:12] == row[2][:12]:
+            print(f"すでに登録されています。登録をスキップします：{row[0]},{row[1]},{row[2][:12]}...")
+            continue
 
     # データ追加
     cursor.execute("INSERT INTO T_REVIEW ( HAKI_FLG ,"
@@ -201,6 +206,7 @@ for content in content_list:
 
     # コミット
     conn.commit()
+    iCount += 1
 
     # 辞書にしてリストにアペンド
     # content_info = {
@@ -220,12 +226,11 @@ for content in content_list:
 # df = pd.DataFrame(result)
 # print(df)
 
-
 # 接続を閉じる
 cursor.close()
 conn.close()
 
-print("*** 楽天レビューデータ抽出END ***")
+print(f"*** 楽天レビューデータ抽出END *** : 登録した件数：{iCount}")
 
 
 
