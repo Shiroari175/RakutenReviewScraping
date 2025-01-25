@@ -73,7 +73,9 @@ content_list = html_text.find_all('li')
 item_name_element = html_text.find('span', class_='ellipsis--3cNjo')
 if item_name_element is not None:
     # 100文字以上は、カットする
-    item_name = shorten(item_name_element.text, 100)
+    # 比較チェック時に、問題があるので一旦廃止する
+    # item_name = shorten_text(item_name_element.text, 100)
+    item_name = item_name_element.text
 else:
     item_name = None
 
@@ -157,14 +159,20 @@ for content in content_list:
 
     # 商品名と購入者が同じ場合、かつ名前が「購入者」以外なら追加しないで飛ばす
     # TODO 問題あり重複チェックは後で見直す
-    # cursor.execute('SELECT ITEM_NM, PURCHASER_NM FROM T_REVIEW WHERE'
-    #                ' PURCHASER_NM = %s', (purchaser_name,))
-    # row = cursor.fetchone()
-    # if row is not None :
-    #     if item_name == row[0] and purchaser_name == row[1] :
-    #         if '購入者' != row[1]:
-    #             print(f"登録スキップします：{row[0]},{row[1]},{review_text}")
-    #             continue
+
+    # 重複チェック
+    # 1.商品名が同じ
+    # 2.かつ購入者名が同じ
+    # 3.かつレビュー本文が先頭から12文字あっていたならば
+    # 追加しないで、更新する
+    cursor.execute('SELECT ITEM_NM, PURCHASER_NM FROM T_REVIEW WHERE'
+                   ' PURCHASER_NM = %s', (purchaser_name,))
+    row = cursor.fetchone()
+    if row is not None :
+        if item_name == row[0] and purchaser_name == row[1] :
+            if '購入者' != row[1]:
+                print(f"登録スキップします：{row[0]},{row[1]},{review_text}")
+                continue
 
     # データ追加
     cursor.execute("INSERT INTO T_REVIEW ( HAKI_FLG ,"
