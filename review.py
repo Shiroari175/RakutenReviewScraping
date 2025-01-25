@@ -208,24 +208,6 @@ for content in content_list:
     conn.commit()
     iCount += 1
 
-    # 辞書にしてリストにアペンド
-    # content_info = {
-    #     'item_title':item_title,
-    #     'purchaser_name':purchaser_name,
-    #     'evaluation':evaluation,
-    #     'review_title':review_title,
-    #     'review_text':review_text,
-    #     'sex': item_detail_list[1],
-    #     'age': item_detail_list[2],
-    #     'item_detail': item_detail_list[3],
-    #     'order_date': order_date,
-    # }
-    # result.append(content_info)
-
-# データフレームにする
-# df = pd.DataFrame(result)
-# print(df)
-
 # 接続を閉じる
 cursor.close()
 conn.close()

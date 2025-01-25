@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="65ab3568-5b0a-4992-846f-abeb93b43617" name="変更" comment="100文字以上は、カットする機能を一旦廃止">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="65ab3568-5b0a-4992-846f-abeb93b43617" name="変更" comment="レビューデータ重複チェックの追加">
       <change beforePath="$PROJECT_DIR$/review.py" beforeDir="false" afterPath="$PROJECT_DIR$/review.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,17 +43,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.rakuten_review.executor": "Run",
-    "Python.review.executor": "Run",
-    "Python.review_input.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.rakuten_review.executor&quot;: &quot;Run&quot;,
+    &quot;Python.review.executor&quot;: &quot;Run&quot;,
+    &quot;Python.review_input.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -103,7 +102,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737771681285</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="レビューデータ重複チェックの追加">
+      <option name="closed" value="true" />
+      <created>1737780929435</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1737780929435</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -133,6 +140,7 @@
     <MESSAGE value="ファイル名変更" />
     <MESSAGE value="新規作成" />
     <MESSAGE value="100文字以上は、カットする機能を一旦廃止" />
-    <option name="LAST_COMMIT_MESSAGE" value="100文字以上は、カットする機能を一旦廃止" />
+    <MESSAGE value="レビューデータ重複チェックの追加" />
+    <option name="LAST_COMMIT_MESSAGE" value="レビューデータ重複チェックの追加" />
   </component>
 </project>
