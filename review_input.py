@@ -12,14 +12,6 @@ def start_scraping():
     review.scrape(url)
     result_label.config(text="*** 対象商品の抽出処理が完了しました。 *** :")
 
-    # messagebox.showinfo("スクレイピング開始", f"レビューのスクレイピングを開始します。")
-    # process = Popen(['python', 'review.py', url,], stdout=PIPE, stderr=PIPE)
-    # output, error = process.communicate()
-    # if error:
-    #     result_label.config(text=error.decode())
-    # else:
-    #     result_label.config(text=output.decode())
-
 # Tkinterのウィンドウを作成
 root = tk.Tk()
 root.title("楽天レビュースクレイピング")
@@ -29,17 +21,30 @@ root.geometry("800x450")
 frame = tk.Frame(root, width=750, height=400, bg='#EEEEEE', relief="solid")
 frame.pack(padx=10, pady=10)
 
-# ラベルを作成
+# URLラベル
 label = tk.Label(frame, text="レビューをスクレイピングするURLを入力してください：", font=("游ゴシック", 12))
 label.place(x=10, y=10)
 
-# 入力項目を作成
+# URL入力
 entry = tk.Entry(frame, width=80, font=("游ゴシック", 12) )
 entry.place(x=10, y=50)
 
+# ページラベル
+page_label = tk.Label(frame, text="スクレイピングする、ページ数を入力してください：", font=("游ゴシック", 12))
+page_label.place(x=10, y=100)
+
+# ページ入力
+page_entry = tk.Entry(frame, width=10, font=("游ゴシック", 12) )
+page_entry.place(x=400, y=100)
+
+# 数値のリストを作成
+numbers = [str(i) for i in range(5, 51, 5)]  # 1から10までの数値
+
+
+
 # 処理結果
 result_label = tk.Label(frame, text="※ここに処理結果が表示されます。", font=("游ゴシック", 9) )
-result_label.place(x=10, y=80)
+result_label.place(x=10, y=160)
 
 # ボタンを作成
 button = tk.Button(frame, text="スクレイピング開始", font=("游ゴシック", 12), command=start_scraping)
