@@ -10,8 +10,8 @@ def start_scraping():
     :return:
     """
     url = entry.get()
-    review.scrape(url, int(selected_number.get()))
-    result_label.config(text="*** 対象商品の抽出処理が完了しました。 *** :")
+    result_text = review.scrape(url, int(selected_number.get()))
+    result_label.config(text=result_text)
 
 # 数値が変更されたときにラベルを更新する関数
 # def update_label(*args):

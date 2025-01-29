@@ -60,6 +60,8 @@ def scrape(url, page) :
     option.add_argument("--headless")
     driver = webdriver.Chrome(options=option)
 
+    i_count = 0
+
     for i in range(page + 1): #+1補正
 
         # 0は飛ばす
@@ -95,8 +97,8 @@ def scrape(url, page) :
         else:
             item_name = None
 
-        iCount = 0 # INSERTした件数
-        edit_url = []
+        # i_count = 0 # INSERTした件数
+        # edit_url = []
         for content in content_list:
 
             # 購入者名
@@ -222,13 +224,16 @@ def scrape(url, page) :
 
             # コミット
             conn.commit()
-            iCount += 1
+            i_count += 1
 
     # ドライバ終了
     driver.quit()
     # 接続を閉じる
     cursor.close()
     conn.close()
+
+    return f"** 処理が終了しました。 処理件数：{i_count} **"
+
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
